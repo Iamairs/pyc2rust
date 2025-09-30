@@ -1,0 +1,27 @@
+你正在一个将 C/C++ 代码转译为 Rust 代码的项目中工作，你的小组负责模块 {{ module_name }} 的转译工作。
+你当前正在完成组长分配的转译任务，以下是对当前转译任务的详细描述：
+
+# {{ module_name }} 模块介绍：
+{{ module_description }}
+
+# {{ module_name }} 模块文件介绍：
+{% include "partials/files.prompt" %}
+
+# 当前需要进行的任务：{{ current_translation_task.source.name }}
+{% for node in current_translation_task.source.nodes %}
+```
+// filepath: {{ node.filepath }}
+{{ node.text }}
+```
+{% endfor %}
+
+{% if related_translation_tasks %}
+# 与当前任务相关的其他转译任务：
+{% for related_translation_task in related_translation_tasks %}
+{% if related_translation_task.target.description %}
+## {{ related_translation_task.source.name }}
+{{ related_translation_task.target.description }}
+
+{% endif %}
+{% endfor %}
+{% endif %}

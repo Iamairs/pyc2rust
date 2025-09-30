@@ -1,0 +1,37 @@
+请根据以下信息按照模板编写一份详细的转译报告，以便客户审阅。
+
+# 以下是全部转译任务
+{% for translation_task in translation_tasks %}
+## 任务 #{{ loop.index }} - {{ translation_task.source.name }} （{{ translation_task.status }}）
+### C 代码标签
+{% for node in translation_task.source.nodes %}{{ node.name }}{% if not loop.last %}, {% endif %}{% endfor %}
+{#{% for node in translation_task.source.nodes %}#}
+{#{{ node.text }}#}
+{#{% endfor %}#}
+
+{% if translation_task.target.text %}
+### Rust 代码
+{{ translation_task.target.text }}
+{% endif %}
+
+### 转译说明
+{{ translation_task.target.description }}
+{% endfor %}
+
+{### 最终生成的全部 Rust 代码#}
+{#{% include "partials/files.prompt" %}#}
+
+## 报告模板
+
+### {{ module_name }} 模块介绍
+{{ module_description }}
+
+### 转译记录
+- 使用表格形式呈现，每列依次为任务编号、完成状态、C代码标签名、Rust代码标签名、转译说明。
+- 完成状态包括：成功、失败。
+- C代码标签名和Rust代码标签名分别指向转译前和转译后的代码片段的标签名，例如函数名、结构体名等。
+- 转译说明应包括转译过程中遇到的问题、解决方案、转译策略等。
+
+请确保报告内容详尽且易于理解，以帮助非技术背景的读者也能把握关键点。
+值得注意的是，报告中无需包含代码的具体细节。
+使用中文。

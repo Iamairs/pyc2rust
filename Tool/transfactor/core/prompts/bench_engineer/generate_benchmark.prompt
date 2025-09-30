@@ -1,0 +1,30 @@
+请根据用户提供模块{{ module_name }}的所有 Rust 代码，使用`criterion`库为该模块编写基准测试程序。
+请确保基准测试程序覆盖模块中的所有关键函数。
+
+## {{ module_name }} 文件列表
+{% for rust_file in related_rust_files %}
+### {{ rust_file.path }}
+{% if rust_file.content == "" %}
+文件内容为空
+{% else %}
+{{ rust_file.content }}
+{% endif %}
+{% endfor %}
+
+## 转译说明
+{% for translation_task in translation_tasks %}
+### {{ translation_task.source.name }}
+{{ translation_task.target.description }}
+{% endfor %}
+
+## Benchmark 代码要求
+- 1. 使用`criterion`库为该模块编写基准测试程序。
+- 2. 每个基准测试名应该包含其所属模块及被测函数名称, 例如: 所属模块名_被测函数名。
+- 3. 不需要为 todo! 宏占位的函数编写基准测试程序。
+- 4. **若被测代码为空，则不需要编写基准测试程序，直接返回空的基准测试代码块即可。**
+
+## 输出格式要求
+请在 Markdown 代码块中编写基准测试程序，除基准测试代码外, 请不要包含任何其他内容。
+
+**重要**：若被测试的 Rust 代码为空且转译说明中也不涉及 Rust 代码，则**一定不要**为其编写测试代码，直接返回空的测试代码块，并根据转译说明给出无需测试的原因。
+请根据以上提供的信息，为该 Rust 模块编写基准测试程序。

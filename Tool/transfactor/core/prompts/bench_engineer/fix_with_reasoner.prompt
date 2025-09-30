@@ -1,0 +1,31 @@
+用户正在运行一个 Rust 模块 {{ module_name }} 的 benchmark 程序, 但程序运行过程中出现错误。
+用户将向你提供被测模块的代码, benchmark 程序, 部分项目文件的内容以及相关的错误信息, 请你帮助用户找出错误并解决问题。
+
+# 模块 {{ module_name }} 相关文件
+{% for rust_file in rust_files %}
+### {{rust_file.path}}
+{% if rust_file.content == "" %}
+文件内容为空
+{% else %}
+{{ rust_file.content }}
+{% endif %}
+{% endfor %}
+
+# Benchmark 程序
+## {{ bench_file }}
+{{ bench_code }}
+
+## 错误信息
+{% for error in errors %}
+{{ error }}
+{% endfor %}
+
+{% if explanations %}
+# 针对错误的解释
+{% for explanation in explanations %}
+{{ explanation }}
+{% endfor %}
+{% endif %}
+
+你的所有修改结果应该使用变更代码块表示：
+{% include "partials/changed_code_block.prompt" %}
